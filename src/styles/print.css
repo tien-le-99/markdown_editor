@@ -1,0 +1,512 @@
+/* Production Print Styles for High-Fidelity PDF Export */
+
+@page {
+  size: A4 portrait;
+  margin: 18mm 16mm 18mm 16mm;
+}
+
+@media print {
+  /* Reset layout constraints & ensure proper colors */
+  html, body {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide interactive web chrome, sidebars, toolbar, modals */
+  .no-print,
+  .editor-toolbar,
+  .markdown-drawer,
+  .node-action-btn,
+  .node-edit-modal,
+  .chart-edit-trigger,
+  .panzoom-controls,
+  button {
+    display: none !important;
+  }
+
+  /* Main container normalization */
+  .pdf-export-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .ProseMirror {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    font-size: 11pt !important;
+  }
+
+  /* Pagination & Break Rules */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    color: #0f172a !important;
+  }
+
+  h1 {
+    font-size: 22pt !important;
+    margin-top: 0 !important;
+    margin-bottom: 12pt !important;
+  }
+
+  h2 {
+    font-size: 16pt !important;
+    margin-top: 18pt !important;
+    margin-bottom: 8pt !important;
+  }
+
+  h3 {
+    font-size: 13pt !important;
+    margin-top: 14pt !important;
+    margin-bottom: 6pt !important;
+  }
+
+  p, li, blockquote {
+    page-break-inside: auto;
+    orphans: 3;
+    widows: 3;
+  }
+
+  a[href] {
+    color: #0284c7 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 2pt !important;
+  }
+
+  a:not([href]),
+  .anchor-point {
+    text-decoration: none !important;
+    color: inherit !important;
+    border: none !important;
+    display: inline !important;
+    width: 0 !important;
+    height: 0 !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+  }
+
+  hr {
+    border: none !important;
+    border-top: 1px solid #e2e8f0 !important;
+    margin: 16pt 0 !important;
+    break-after: page !important;
+    page-break-after: always !important;
+  }
+
+  /* A quoted message may contain headings, tables and code: keep it upright.
+     Rules inside a quote are visual separators, not page breaks. */
+  blockquote {
+    font-style: normal !important;
+  }
+
+  blockquote hr {
+    break-after: auto !important;
+    page-break-after: auto !important;
+  }
+
+  blockquote pre {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  hr:has(+ blockquote) {
+    break-after: auto !important;
+    page-break-after: auto !important;
+  }
+
+  /* Tables: Avoid page cut-offs, format borders cleanly */
+  table {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 12pt 0 !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  th, td {
+    border: 1px solid #cbd5e1 !important;
+    padding: 6pt 10pt !important;
+    font-size: 9.5pt !important;
+    background-color: transparent !important;
+  }
+
+  th {
+    background-color: #f1f5f9 !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+  }
+
+  /* Interactive Data Visualizations, Diagrams & Math */
+  .echarts-node-container,
+  .mermaid-node-container,
+  .math-block-container,
+  figure,
+  pre,
+  code {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .math-block-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 14pt 0 !important;
+    padding: 10pt !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+    text-align: center !important;
+  }
+
+  .katex-display {
+    margin: 0.5em 0 !important;
+    overflow-x: visible !important;
+  }
+
+  .echarts-node-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 14pt 0 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+  }
+
+  .echarts-node-container canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .mermaid-node-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 14pt 0 !important;
+    padding: 10pt !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+    text-align: center !important;
+  }
+
+  @page mermaid-landscape {
+    size: A4 landscape;
+    margin: 16mm 18mm 16mm 18mm;
+  }
+
+  /* Dedicated portrait page for wide diagrams rotated 90 degrees */
+  .mermaid-rotated-page {
+    break-before: page !important;
+    break-after: page !important;
+    page-break-before: always !important;
+    page-break-after: always !important;
+    width: 100% !important;
+    height: 260mm !important;
+    max-height: 260mm !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+  }
+
+  .mermaid-rotated-page .mermaid-canvas-viewport {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  .mermaid-rotated-inner {
+    width: 260mm !important;
+    height: 178mm !important;
+    max-width: 260mm !important;
+    max-height: 178mm !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: rotate(90deg) !important;
+    transform-origin: center center !important;
+    position: absolute !important;
+  }
+
+  .mermaid-rotated-inner .panzoom-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: none !important;
+  }
+
+  .mermaid-rotated-page .mermaid-rotated-inner svg,
+  .mermaid-rotated-inner svg {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block !important;
+    margin: auto !important;
+    transform: none !important;
+    object-fit: contain !important;
+  }
+
+  /* Dedicated landscape page for wide diagrams (unrotated) */
+  .mermaid-landscape-page {
+    page: mermaid-landscape;
+    break-before: page !important;
+    break-after: page !important;
+    page-break-before: always !important;
+    page-break-after: always !important;
+    width: 100% !important;
+    height: 178mm !important;
+    max-height: 178mm !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+  }
+
+  /* Dedicated enlarged page for wide diagrams (unrotated, dynamic page dimensions) */
+  .mermaid-enlarge-page {
+    break-before: page !important;
+    break-after: page !important;
+    page-break-before: always !important;
+    page-break-after: always !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+  }
+
+  .mermaid-landscape-page .mermaid-canvas-viewport,
+  .mermaid-enlarge-page .mermaid-canvas-viewport {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  .mermaid-landscape-page svg,
+  .mermaid-enlarge-page svg {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block !important;
+    margin: auto !important;
+    transform: none !important;
+    object-fit: contain !important;
+  }
+
+  /* Unclamp interactive canvas height & overflow for full vertical expansion */
+  .mermaid-node-container:not(.mermaid-rotated-page) > div:not([class*="border-b"]),
+  .mermaid-node-container:not(.mermaid-rotated-page) .mermaid-canvas-viewport {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+
+  /* Reset any dynamic transform or pan-zoom scaling for print */
+  .mermaid-node-container:not(.mermaid-rotated-page) svg,
+  .panzoom-wrapper:not(.mermaid-rotated-inner .panzoom-wrapper) svg {
+    transform: none !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .mermaid-node-container svg text,
+  .mermaid-node-container svg span,
+  .mermaid-node-container svg p {
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  }
+
+  /* Code blocks */
+  pre {
+    background: #f8fafc !important;
+    color: #1e293b !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 4px !important;
+    padding: 8pt !important;
+    font-size: 8.5pt !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+  }
+
+  /* Inline code formatting for print */
+  :not(pre) > code {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 3px !important;
+    padding: 1pt 3pt !important;
+    font-size: 9pt !important;
+  }
+
+  /* Nested list hierarchy for print */
+  ul ul {
+    list-style-type: circle !important;
+    margin-top: 2pt !important;
+    margin-bottom: 2pt !important;
+  }
+
+  ul ul ul {
+    list-style-type: square !important;
+  }
+
+  ol ol {
+    list-style-type: lower-alpha !important;
+    margin-top: 2pt !important;
+    margin-bottom: 2pt !important;
+  }
+
+  ol ul {
+    list-style-type: circle !important;
+    margin-top: 2pt !important;
+    margin-bottom: 2pt !important;
+  }
+
+  /* Task list styling for print */
+  ul[data-type="taskList"],
+  ul.task-list {
+    list-style: none !important;
+    padding-left: 0 !important;
+  }
+
+  ul[data-type="taskList"] > li,
+  li[data-type="taskItem"],
+  li[data-checked] {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 6pt !important;
+    margin: 3pt 0 !important;
+    padding-left: 0 !important;
+    list-style: none !important;
+  }
+
+  ul[data-type="taskList"] > li::before,
+  li[data-type="taskItem"]::before,
+  li[data-checked]::before {
+    display: none !important;
+  }
+
+  ul[data-type="taskList"] > li > label,
+  li[data-type="taskItem"] > label {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+    margin-top: 1pt !important;
+  }
+
+  ul[data-type="taskList"] > li input[type="checkbox"],
+  li[data-type="taskItem"] input[type="checkbox"] {
+    width: 10pt !important;
+    height: 10pt !important;
+    accent-color: #2563eb !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  ul[data-type="taskList"] > li > div,
+  li[data-type="taskItem"] > div {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  ul[data-type="taskList"] > li > div > p,
+  li[data-type="taskItem"] > div > p {
+    margin: 0 !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Paginated tall Mermaid diagrams: one strict-A4 slice per page */
+  .mermaid-paginate-page {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    overflow: hidden !important;
+  }
+
+  .mermaid-slice-viewport {
+    width: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  .mermaid-slice-inner {
+    position: relative !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .mermaid-slice-viewport svg {
+    display: block !important;
+    transform: none !important;
+    margin: 0 !important;
+  }
+}
+
